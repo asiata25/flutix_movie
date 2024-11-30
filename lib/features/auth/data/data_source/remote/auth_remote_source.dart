@@ -9,6 +9,8 @@ abstract class AuthRemoteSource {
     required String email,
     required String password,
   });
+
+  Future<DataState<String>> signOutUser();
 }
 
 class SupabaseDataSource extends AuthRemoteSource {
@@ -59,6 +61,18 @@ class SupabaseDataSource extends AuthRemoteSource {
       }
 
       return DataSuccess(UserModel.fromJson(user.toJson()));
+    } on AuthException catch (e) {
+      return DataFailed(Exception(e.message));
+    } catch (e) {
+      return DataFailed(Exception(e));
+    }
+  }
+
+  @override
+  Future<DataState<String>> signOutUser() async {
+    try {
+      await _supabaseClient.auth.signOut();
+      return const DataSuccess("user successfully sign out");
     } on AuthException catch (e) {
       return DataFailed(Exception(e.message));
     } catch (e) {

@@ -6,4 +6,5 @@ abstract class AuthRepository {
       {required String email, required String password, required String name});
   Future<DataState<UserEntity>> signInWithEmail(
       {required String email, required String password});
+  Future<DataState<String>> signOut();
 }

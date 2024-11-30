@@ -44,4 +44,19 @@ class AuthRepositoryImpl extends AuthRepository {
       return DataFailed(Exception(e));
     }
   }
+
+  @override
+  Future<DataState<String>> signOut() async {
+    try {
+      final res = await _authRemoteSource.signOutUser();
+
+      if (res is DataFailed) {
+        return DataFailed(res.error!);
+      }
+
+      return DataSuccess(res.data!);
+    } catch (e) {
+      return DataFailed(Exception(e));
+    }
+  }
 }
