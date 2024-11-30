@@ -59,9 +59,9 @@ class UserModel extends UserEntity {
         rawAppMetaData: json["raw_app_meta_data"] == null
             ? null
             : RawAppMetaData.fromJson(json["raw_app_meta_data"]),
-        rawUserMetaData: json["raw_user_meta_data"] == null
+        rawUserMetaData: json["user_metadata"] == null
             ? null
-            : RawUserMetaData.fromJson(json["raw_user_meta_data"]),
+            : RawUserMetaData.fromJson(json["user_metadata"]),
         isSuperAdmin: json["is_super_admin"],
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
