@@ -1,5 +1,6 @@
 import 'package:flutix_movie/features/auth/data/data_source/remote/auth_remote_source.dart';
 import 'package:flutix_movie/features/auth/data/repository/auth_repository_impl.dart';
+import 'package:flutix_movie/features/auth/domain/usecase/user_signin.dart';
 import 'package:flutix_movie/features/auth/domain/usecase/user_signup.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -16,13 +17,13 @@ class _LoginState extends State<Login> {
   String _username = "User name";
 
   void _incrementCounter() async {
-    final user = await UserSignup(
+    final user = await UserSignin(
             AuthRepositoryImpl(SupabaseDataSource(Supabase.instance.client)))
         .call(
-            params: UserSignupParams(
-                email: "Alessia.Mayer36@hotmail.com",
-                password: "asdqwe123",
-                name: "Watsica, Christiansen and Pouros"));
+            params: UserSigninParams(
+      email: "Alessia.Mayer36@hotmail.com",
+      password: "asdqwe123",
+    ));
 
     setState(() {
       _username = user.data?.id ?? "tidaaak";

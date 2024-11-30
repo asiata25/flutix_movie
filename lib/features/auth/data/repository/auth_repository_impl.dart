@@ -27,4 +27,21 @@ class AuthRepositoryImpl extends AuthRepository {
       return DataFailed(Exception(e));
     }
   }
+
+  @override
+  Future<DataState<UserEntity>> signInWithEmail(
+      {required String email, required String password}) async {
+    try {
+      final res =
+          await _authRemoteSource.signInUser(email: email, password: password);
+
+      if (res is DataFailed) {
+        return DataFailed(res.error!);
+      }
+
+      return DataSuccess(res.data!);
+    } catch (e) {
+      return DataFailed(Exception(e));
+    }
+  }
 }
