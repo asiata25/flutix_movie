@@ -1,7 +1,6 @@
 import 'package:flutix_movie/features/auth/data/data_source/remote/auth_remote_source.dart';
 import 'package:flutix_movie/features/auth/data/repository/auth_repository_impl.dart';
 import 'package:flutix_movie/features/auth/domain/usecase/user_signin.dart';
-import 'package:flutix_movie/features/auth/domain/usecase/user_signup.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -26,7 +25,7 @@ class _LoginState extends State<Login> {
     ));
 
     setState(() {
-      _username = user.data?.id ?? "tidaaak";
+      _username = user.data?.id ?? user.error.toString();
     });
   }
 

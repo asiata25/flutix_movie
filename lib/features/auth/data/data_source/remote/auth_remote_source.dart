@@ -36,6 +36,8 @@ class SupabaseDataSource extends AuthRemoteSource {
       }
 
       return DataSuccess(UserModel.fromJson(user.toJson()));
+    } on AuthException catch (e) {
+      return DataFailed(Exception(e.message));
     } catch (e) {
       return DataFailed(Exception(e));
     }
@@ -45,7 +47,7 @@ class SupabaseDataSource extends AuthRemoteSource {
   Future<DataState<UserModel>> signInUser(
       {required String email, required String password}) async {
     try {
-      final AuthResponse res = await _supabaseClient.auth.signInWithPassword(
+      final AuthResponse res = await _supabaseClient.auth.signUp(
         email: email,
         password: password,
       );
@@ -57,6 +59,8 @@ class SupabaseDataSource extends AuthRemoteSource {
       }
 
       return DataSuccess(UserModel.fromJson(user.toJson()));
+    } on AuthException catch (e) {
+      return DataFailed(Exception(e.message));
     } catch (e) {
       return DataFailed(Exception(e));
     }
