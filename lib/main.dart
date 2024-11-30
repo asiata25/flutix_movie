@@ -1,8 +1,17 @@
+import 'package:flutix_movie/core/constant/constant.dart';
 import 'package:flutix_movie/core/theme/app_theme.dart';
 import 'package:flutix_movie/features/auth/presentation/pages/login.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: supabseUrl,
+    anonKey: supabseAnonKey,
+  );
+
   runApp(const MyApp());
 }
 
