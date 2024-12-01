@@ -1,7 +1,7 @@
+import 'package:flutix_movie/commons/pages/home.dart';
 import 'package:flutix_movie/commons/pages/splash.dart';
 import 'package:flutix_movie/core/theme/app_theme.dart';
 import 'package:flutix_movie/features/auth/presentation/bloc/remote/bloc/auth_remote_bloc.dart';
-import 'package:flutix_movie/features/auth/presentation/pages/login.dart';
 import 'package:flutix_movie/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       home: BlocBuilder<AuthRemoteBloc, AuthRemoteState>(
         builder: (context, state) {
           if (state is AuthDone) {
-            return const Login();
+            return const Home();
           }
 
           return const Splash();

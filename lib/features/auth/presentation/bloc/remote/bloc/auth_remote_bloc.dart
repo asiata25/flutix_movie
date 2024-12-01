@@ -36,8 +36,6 @@ class AuthRemoteBloc extends Bloc<AuthRemoteEvent, AuthRemoteState> {
     if (session.data != null) {
       emit(AuthDone(session.data!));
     }
-
-    print("cek dulu ya");
   }
 
   void _onUserSignUp(event, emit) async {
@@ -63,7 +61,6 @@ class AuthRemoteBloc extends Bloc<AuthRemoteEvent, AuthRemoteState> {
     }
 
     if (user is DataFailed) {
-      print(user.error);
       emit(AuthError(user.error.toString()));
     }
   }

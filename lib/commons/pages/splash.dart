@@ -1,4 +1,5 @@
 import 'package:flutix_movie/features/auth/presentation/bloc/remote/bloc/auth_remote_bloc.dart';
+import 'package:flutix_movie/features/auth/presentation/pages/login_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,20 +42,13 @@ class Splash extends StatelessWidget {
               child: BlocBuilder<AuthRemoteBloc, AuthRemoteState>(
                 builder: (context, state) {
                   return ElevatedButton(
-                      onPressed: () => context.read<AuthRemoteBloc>()
-                        ..add(AuthSignIn(
-                            email: "asiatakh25@gmail.com",
-                            password: "123qweasd")),
+                      onPressed: () =>
+                          {Navigator.push(context, LoginPage.route())},
                       style: ElevatedButton.styleFrom(
-                          shadowColor: Colors.transparent,
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12)))),
+                        backgroundColor: Colors.white,
+                      ),
                       child: const Text(
                         "Get Started",
-                        style: TextStyle(fontSize: 18, color: Colors.black),
                       ));
                 },
               ),
@@ -71,7 +65,7 @@ class Splash extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        print("Login");
+                        Navigator.push(context, LoginPage.route());
                       })
               ])),
             )
