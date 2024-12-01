@@ -1,7 +1,8 @@
 import 'package:flutix_movie/core/resources/data_state.dart';
 import 'package:flutix_movie/core/usecase/usecase.dart';
-import 'package:flutix_movie/features/auth/domain/entity/user_entity.dart';
+import 'package:flutix_movie/commons/entities/user_entity.dart';
 import 'package:flutix_movie/features/auth/domain/repository/auth_repository.dart';
+import 'package:equatable/equatable.dart';
 
 class UserSignin extends Usecase<DataState<UserEntity>, UserSigninParams> {
   final AuthRepository _authRepository;
@@ -15,9 +16,12 @@ class UserSignin extends Usecase<DataState<UserEntity>, UserSigninParams> {
   }
 }
 
-class UserSigninParams {
+class UserSigninParams extends Equatable {
   final String email;
   final String password;
 
-  UserSigninParams({required this.email, required this.password});
+  const UserSigninParams({required this.email, required this.password});
+
+  @override
+  List<Object?> get props => [email, password];
 }

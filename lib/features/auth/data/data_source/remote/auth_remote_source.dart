@@ -9,8 +9,8 @@ abstract class AuthRemoteSource {
     required String email,
     required String password,
   });
-
   Future<DataState<String>> signOutUser();
+  DataState<UserModel> retriveSession();
 }
 
 class SupabaseDataSource extends AuthRemoteSource {
@@ -49,7 +49,7 @@ class SupabaseDataSource extends AuthRemoteSource {
   Future<DataState<UserModel>> signInUser(
       {required String email, required String password}) async {
     try {
-      final AuthResponse res = await _supabaseClient.auth.signUp(
+      final AuthResponse res = await _supabaseClient.auth.signInWithPassword(
         email: email,
         password: password,
       );
@@ -78,5 +78,18 @@ class SupabaseDataSource extends AuthRemoteSource {
     } catch (e) {
       return DataFailed(Exception(e));
     }
+  }
+
+  @override
+  DataState<UserModel> retriveSession() {
+    final Session? session = _supabaseClient.auth.currentSession;
+
+    final user = session?.user;
+
+    if (session != null && user != null) {
+      return DataSuccess(UserModel.fromJson(user.toJson()));
+    }
+
+    return DataFailed(Exception("no user session"));
   }
 }

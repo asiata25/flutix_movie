@@ -1,6 +1,6 @@
 import 'package:flutix_movie/core/resources/data_state.dart';
 import 'package:flutix_movie/features/auth/data/data_source/remote/auth_remote_source.dart';
-import 'package:flutix_movie/features/auth/domain/entity/user_entity.dart';
+import 'package:flutix_movie/commons/entities/user_entity.dart';
 import 'package:flutix_movie/features/auth/domain/repository/auth_repository.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
@@ -58,5 +58,16 @@ class AuthRepositoryImpl extends AuthRepository {
     } catch (e) {
       return DataFailed(Exception(e));
     }
+  }
+
+  @override
+  DataState<UserEntity> retriveSession() {
+    final res = _authRemoteSource.retriveSession();
+
+    if (res is DataFailed) {
+      return DataFailed(res.error!);
+    }
+
+    return DataSuccess(res.data!);
   }
 }

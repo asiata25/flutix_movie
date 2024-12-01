@@ -1,4 +1,4 @@
-import 'package:flutix_movie/features/auth/presentation/bloc/remote/bloc/auth_bloc.dart';
+import 'package:flutix_movie/features/auth/presentation/bloc/remote/bloc/auth_remote_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,7 +7,7 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(
+    return BlocBuilder<AuthRemoteBloc, AuthRemoteState>(
       builder: (context, state) {
         String displayText = "Welcome";
 
@@ -39,10 +39,7 @@ class Login extends StatelessWidget {
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () => context.read<AuthBloc>().add(AuthSignUp(
-                name: "khoir",
-                email: "asiatakh25@gmail.com",
-                password: "123qweasd")),
+            onPressed: () => context.read<AuthRemoteBloc>().add(AuthSignOut()),
             tooltip: 'Increment',
             child: const Icon(Icons.add),
           ), // This trailing comma makes auto-formatting nicer for build methods.

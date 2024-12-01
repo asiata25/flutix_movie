@@ -1,4 +1,4 @@
-import 'package:flutix_movie/features/auth/domain/entity/user_entity.dart';
+import 'package:flutix_movie/commons/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
   UserModel({
