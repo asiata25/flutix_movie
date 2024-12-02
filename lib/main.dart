@@ -1,5 +1,3 @@
-import 'package:flutix_movie/commons/pages/home_page.dart';
-import 'package:flutix_movie/commons/pages/onboard_page.dart';
 import 'package:flutix_movie/commons/pages/splash_screen.dart';
 import 'package:flutix_movie/core/theme/app_theme.dart';
 import 'package:flutix_movie/features/auth/presentation/bloc/remote/bloc/auth_remote_bloc.dart';
@@ -13,7 +11,10 @@ void main() async {
   await setup();
 
   runApp(MultiBlocProvider(
-    providers: [BlocProvider(create: (context) => locator<AuthRemoteBloc>())],
+    providers: [
+      // TODO: implement AppUserCubit for app wide user
+      BlocProvider(create: (context) => locator<AuthRemoteBloc>())
+    ],
     child: const MyApp(),
   ));
 }
@@ -25,10 +26,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: AppTheme.defaultTheme,
-      home: const SplashScreen()
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: AppTheme.defaultTheme,
+        home: const SplashScreen());
   }
 }
