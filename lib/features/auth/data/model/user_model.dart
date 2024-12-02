@@ -1,83 +1,66 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutix_movie/commons/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
+  final RawUserMetaData? rawUserMetaData;
+
   UserModel({
-    super.instanceId,
-    super.id,
-    super.aud,
-    super.role,
-    super.email,
-    super.encryptedPassword,
-    super.emailConfirmedAt,
-    super.invitedAt,
-    super.confirmationToken,
-    super.confirmationSentAt,
-    super.recoveryToken,
-    super.recoverySentAt,
-    super.emailChangeTokenNew,
-    super.emailChange,
-    super.emailChangeSentAt,
-    super.lastSignInAt,
-    super.rawAppMetaData,
-    super.rawUserMetaData,
-    super.isSuperAdmin,
-    super.createdAt,
-    super.updatedAt,
-    super.phone,
-    super.phoneConfirmedAt,
-    super.phoneChange,
-    super.phoneChangeToken,
-    super.phoneChangeSentAt,
-    super.confirmedAt,
-    super.emailChangeTokenCurrent,
-    super.emailChangeConfirmStatus,
-    super.bannedUntil,
-    super.reauthenticationToken,
-    super.reauthenticationSentAt,
-    super.isSsoUser,
-    super.deletedAt,
-    super.isAnonymous,
-  });
+    this.rawUserMetaData,
+    required super.id,
+    required super.email,
+  }) : super(name: rawUserMetaData?.displayName ?? "");
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        instanceId: json["instance_id"],
-        id: json["id"],
-        aud: json["aud"],
-        role: json["role"],
-        email: json["email"],
-        encryptedPassword: json["encrypted_password"],
-        emailConfirmedAt: json["email_confirmed_at"],
-        invitedAt: json["invited_at"],
-        confirmationToken: json["confirmation_token"],
-        confirmationSentAt: json["confirmation_sent_at"],
-        recoveryToken: json["recovery_token"],
-        recoverySentAt: json["recovery_sent_at"],
-        emailChangeTokenNew: json["email_change_token_new"],
-        emailChange: json["email_change"],
-        emailChangeSentAt: json["email_change_sent_at"],
-        lastSignInAt: json["last_sign_in_at"],
-        rawAppMetaData: json["raw_app_meta_data"] == null
-            ? null
-            : RawAppMetaData.fromJson(json["raw_app_meta_data"]),
+        id: json["id"] ?? "",
+        email: json["email"] ?? "",
         rawUserMetaData: json["user_metadata"] == null
             ? null
             : RawUserMetaData.fromJson(json["user_metadata"]),
-        isSuperAdmin: json["is_super_admin"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
-        phone: json["phone"],
-        phoneConfirmedAt: json["phone_confirmed_at"],
-        phoneChange: json["phone_change"],
-        phoneChangeToken: json["phone_change_token"],
-        phoneChangeSentAt: json["phone_change_sent_at"],
-        confirmedAt: json["confirmed_at"],
-        emailChangeTokenCurrent: json["email_change_token_current"],
-        emailChangeConfirmStatus: json["email_change_confirm_status"],
-        bannedUntil: json["banned_until"],
-        reauthenticationToken: json["reauthentication_token"],
-        reauthenticationSentAt: json["reauthentication_sent_at"],
-        isSsoUser: json["is_sso_user"],
-        deletedAt: json["deleted_at"],
-        isAnonymous: json["is_anonymous"],
       );
+
+  UserModel copyWith({
+    String? id,
+    String? email,
+    RawUserMetaData? rawUserMetaData,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      rawUserMetaData: rawUserMetaData ?? this.rawUserMetaData,
+    );
+  }
+}
+
+class RawUserMetaData extends Equatable {
+  final String? sub;
+  final String? email;
+  final String? displayName;
+  final bool? emailVerified;
+  final bool? phoneVerified;
+
+  const RawUserMetaData({
+    this.sub,
+    this.email,
+    this.displayName,
+    this.emailVerified,
+    this.phoneVerified,
+  });
+
+  factory RawUserMetaData.fromJson(Map<String, dynamic> json) =>
+      RawUserMetaData(
+        sub: json["sub"] ?? "",
+        email: json["email"]?? "",
+        displayName: json["display_name"] ?? "",
+        emailVerified: json["email_verified"] ?? "",
+        phoneVerified: json["phone_verified"] ?? "",
+      );
+
+  @override
+  List<Object?> get props => [
+        sub,
+        email,
+        displayName,
+        emailVerified,
+        phoneVerified,
+      ];
 }

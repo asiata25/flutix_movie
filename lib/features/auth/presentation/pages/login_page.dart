@@ -1,4 +1,6 @@
-import 'package:flutix_movie/commons/pages/home.dart';
+import 'package:flutix_movie/commons/pages/home_page.dart';
+import 'package:flutix_movie/commons/widgets/loader.dart';
+import 'package:flutix_movie/core/utils/show_snakbar.dart';
 import 'package:flutix_movie/features/auth/presentation/bloc/remote/bloc/auth_remote_bloc.dart';
 import 'package:flutix_movie/features/auth/presentation/pages/signup_page.dart';
 import 'package:flutix_movie/features/auth/presentation/widgets/auth_field.dart';
@@ -33,74 +35,78 @@ class _LoginPageState extends State<LoginPage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                "Login.",
-                style: TextStyle(fontSize: 42, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              AuthField(
-                hintText: "Email",
-                icon: Icons.mail,
-                teController: teEmailController,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              AuthField(
-                hintText: "Password",
-                icon: Icons.lock,
-                obscureText: true,
-                teController: tePasswordController,
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              BlocConsumer<AuthRemoteBloc, AuthRemoteState>(
-                listener: (context, state) {
-                  if (state is AuthDone) {
-                    Navigator.pushReplacement(context, Home.route());
-                  }
-                },
-                builder: (context, state) {
-                  return BlocBuilder<AuthRemoteBloc, AuthRemoteState>(
-                    builder: (context, state) {
-                      return SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              final email = teEmailController.text;
-                              final password = tePasswordController.text;
+          child: BlocConsumer<AuthRemoteBloc, AuthRemoteState>(
+            listener: (context, state) {
+              if (state is AuthError) {
+                showSnackBar(context, state.message);
+              }
 
-                              if (email.isNotEmpty && password.isNotEmpty) {
-                                context.read<AuthRemoteBloc>().add(AuthSignIn(
-                                    email: email, password: password));
-                              }
-                            },
-                            child: const Text(
-                              "Submit",
-                            )),
-                      );
-                    },
-                  );
-                },
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(context, SignupPage.route());
-                  },
-                  child: const Text(
-                    "Sign Up? Here",
-                    style: TextStyle(color: Colors.white),
-                  ))
-            ],
+              if (state is AuthDone) {
+                Navigator.pushReplacement(context, HomePage.route());
+              }
+            },
+            builder: (context, state) {
+              if (state is AuthLoading) {
+                return const Loader();
+              }
+
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Login.",
+                    style: TextStyle(fontSize: 42, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  AuthField(
+                    hintText: "Email",
+                    icon: Icons.mail,
+                    teController: teEmailController,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  AuthField(
+                    hintText: "Password",
+                    icon: Icons.lock,
+                    obscureText: true,
+                    teController: tePasswordController,
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          final email = teEmailController.text;
+                          final password = tePasswordController.text;
+
+                          if (email.isNotEmpty && password.isNotEmpty) {
+                            context.read<AuthRemoteBloc>().add(
+                                AuthSignIn(email: email, password: password));
+                          }
+                        },
+                        child: const Text(
+                          "Submit",
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(context, SignupPage.route());
+                      },
+                      child: const Text(
+                        "Sign Up? Here",
+                        style: TextStyle(color: Colors.white),
+                      ))
+                ],
+              );
+            },
           ),
         ),
       ),

@@ -9,6 +9,7 @@ sealed class AuthRemoteState extends Equatable {
 }
 
 final class AuthInitial extends AuthRemoteState {}
+final class AuthLoading extends AuthRemoteState {}
 
 final class AuthDone extends AuthRemoteState {
   final UserEntity user;

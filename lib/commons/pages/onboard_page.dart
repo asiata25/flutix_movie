@@ -1,11 +1,16 @@
 import 'package:flutix_movie/features/auth/presentation/bloc/remote/bloc/auth_remote_bloc.dart';
 import 'package:flutix_movie/features/auth/presentation/pages/login_page.dart';
+import 'package:flutix_movie/features/auth/presentation/pages/signup_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Splash extends StatelessWidget {
-  const Splash({super.key});
+class OnboardPage extends StatelessWidget {
+  const OnboardPage({super.key});
+
+  static router() => MaterialPageRoute(
+        builder: (context) => const OnboardPage(),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +31,7 @@ class Splash extends StatelessWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const Text(
-              "Flutix App",
+              "Flutix Movie",
               style: TextStyle(fontSize: 42),
             ),
             const SizedBox(
@@ -43,7 +48,7 @@ class Splash extends StatelessWidget {
                 builder: (context, state) {
                   return ElevatedButton(
                       onPressed: () =>
-                          {Navigator.push(context, LoginPage.route())},
+                          {Navigator.push(context, SignupPage.route())},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                       ),

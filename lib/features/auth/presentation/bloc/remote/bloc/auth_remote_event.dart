@@ -3,7 +3,7 @@ part of 'auth_remote_bloc.dart';
 @immutable
 class AuthRemoteEvent {}
 
-final class AuthRetriveSession extends AuthRemoteEvent {}
+final class AuthGetCurrentUser extends AuthRemoteEvent {}
 
 final class AuthSignUp extends AuthRemoteEvent {
   final String name;

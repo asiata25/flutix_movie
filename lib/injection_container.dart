@@ -1,7 +1,7 @@
 import 'package:flutix_movie/features/auth/data/data_source/remote/auth_remote_source.dart';
 import 'package:flutix_movie/features/auth/data/repository/auth_repository_impl.dart';
 import 'package:flutix_movie/features/auth/domain/repository/auth_repository.dart';
-import 'package:flutix_movie/features/auth/domain/usecase/retrive_session.dart';
+import 'package:flutix_movie/features/auth/domain/usecase/get_current_user.dart';
 import 'package:flutix_movie/features/auth/domain/usecase/user_signin.dart';
 import 'package:flutix_movie/features/auth/domain/usecase/user_signout.dart';
 import 'package:flutix_movie/features/auth/domain/usecase/user_signup.dart';
@@ -22,36 +22,41 @@ Future<void> setup() async {
   // External Dependencies
   locator.registerLazySingleton<SupabaseClient>(() => supabase.client);
 
+  _authSetup();
+}
+
+void _authSetup() {
   // Data Sources
-  locator.registerLazySingleton<AuthRemoteSource>(
-    () => SupabaseDataSource(
-      locator<SupabaseClient>(),
-    ),
-  );
+  locator
+    ..registerLazySingleton<AuthRemoteSource>(
+      () => SupabaseDataSource(
+        locator<SupabaseClient>(),
+      ),
+    )
 
-  // Repositories
-  locator.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(
-      locator<AuthRemoteSource>(),
-    ),
-  );
+    // Repositories
+    ..registerLazySingleton<AuthRepository>(
+      () => AuthRepositoryImpl(
+        locator<AuthRemoteSource>(),
+      ),
+    )
 
-  // Use Cases
-  locator.registerLazySingleton<UserSignup>(
-    () => UserSignup(
-      locator<AuthRepository>(),
-    ),
-  );
-  locator.registerLazySingleton<UserSignout>(
-      () => UserSignout(locator<AuthRepository>()));
-  locator.registerLazySingleton<UserSignin>(
-      () => UserSignin(locator<AuthRepository>()));
-  locator.registerLazySingleton<RetriveSession>(
-      () => RetriveSession(locator<AuthRepository>()));
+    // Use Cases
+    ..registerLazySingleton<UserSignup>(
+      () => UserSignup(
+        locator<AuthRepository>(),
+      ),
+    )
+    ..registerLazySingleton<UserSignout>(
+        () => UserSignout(locator<AuthRepository>()))
+    ..registerLazySingleton<UserSignin>(
+        () => UserSignin(locator<AuthRepository>()))
+    ..registerLazySingleton<GetCurrentUser>(
+        () => GetCurrentUser(locator<AuthRepository>()))
 
-  // BLoCs
-  locator.registerFactory<AuthRemoteBloc>(
-    () => AuthRemoteBloc(locator<UserSignup>(), locator<UserSignout>(),
-        locator<UserSignin>(), locator<RetriveSession>()),
-  );
+    // BLoCs
+    ..registerFactory<AuthRemoteBloc>(
+      () => AuthRemoteBloc(locator<UserSignup>(), locator<UserSignout>(),
+          locator<UserSignin>(), locator<GetCurrentUser>()),
+    );
 }

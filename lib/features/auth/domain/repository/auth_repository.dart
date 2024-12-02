@@ -7,5 +7,5 @@ abstract class AuthRepository {
   Future<DataState<UserEntity>> signInWithEmail(
       {required String email, required String password});
   Future<DataState<String>> signOut();
-  DataState<UserEntity> retriveSession();
+  Future<DataState<UserEntity>> getCurrentUser();
 }

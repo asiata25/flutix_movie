@@ -3,14 +3,14 @@ import 'package:flutix_movie/core/resources/data_state.dart';
 import 'package:flutix_movie/core/usecase/usecase.dart';
 import 'package:flutix_movie/features/auth/domain/repository/auth_repository.dart';
 
-class RetriveSession extends Usecase<DataState<UserEntity>, void> {
+class GetCurrentUser extends Usecase<DataState<UserEntity>, void> {
   final AuthRepository _authRepository;
 
-  RetriveSession(AuthRepository authRepository)
+  GetCurrentUser(AuthRepository authRepository)
       : _authRepository = authRepository;
 
   @override
   Future<DataState<UserEntity>> call({void params}) async {
-    return _authRepository.retriveSession();
+    return _authRepository.getCurrentUser();
   }
 }

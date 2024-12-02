@@ -10,7 +10,8 @@ abstract class AuthRemoteSource {
     required String password,
   });
   Future<DataState<String>> signOutUser();
-  DataState<UserModel> retriveSession();
+  Session? get currentSession;
+  Future<DataState<UserModel>> retriveCurrentUser();
 }
 
 class SupabaseDataSource extends AuthRemoteSource {
@@ -39,9 +40,9 @@ class SupabaseDataSource extends AuthRemoteSource {
 
       return DataSuccess(UserModel.fromJson(user.toJson()));
     } on AuthException catch (e) {
-      return DataFailed(Exception(e.message));
+      return DataFailed(e.message);
     } catch (e) {
-      return DataFailed(Exception(e));
+      return DataFailed(e.toString());
     }
   }
 
@@ -62,9 +63,9 @@ class SupabaseDataSource extends AuthRemoteSource {
 
       return DataSuccess(UserModel.fromJson(user.toJson()));
     } on AuthException catch (e) {
-      return DataFailed(Exception(e.message));
+      return DataFailed(e.message);
     } catch (e) {
-      return DataFailed(Exception(e));
+      return DataFailed(e.toString());
     }
   }
 
@@ -74,22 +75,34 @@ class SupabaseDataSource extends AuthRemoteSource {
       await _supabaseClient.auth.signOut();
       return const DataSuccess("user successfully sign out");
     } on AuthException catch (e) {
-      return DataFailed(Exception(e.message));
+      return DataFailed(e.message);
     } catch (e) {
-      return DataFailed(Exception(e));
+      return DataFailed(e.toString());
     }
   }
 
   @override
-  DataState<UserModel> retriveSession() {
-    final Session? session = _supabaseClient.auth.currentSession;
+  Future<DataState<UserModel>> retriveCurrentUser() async {
+    try {
+      if (currentSession != null) {
+        final user = await _supabaseClient
+            .from("profiles")
+            .select()
+            .eq("id", currentSession!.user.id);
 
-    final user = session?.user;
-
-    if (session != null && user != null) {
-      return DataSuccess(UserModel.fromJson(user.toJson()));
+        return DataSuccess(UserModel.fromJson(user.first).copyWith(
+            email: currentSession!.user.email,
+            rawUserMetaData: RawUserMetaData(
+                displayName:
+                    currentSession!.user.userMetadata?["display_name"])));
+      } else {
+        throw Exception("no user data");
+      }
+    } catch (e) {
+      return DataFailed(e.toString());
     }
-
-    return DataFailed(Exception("no user session"));
   }
+
+  @override
+  Session? get currentSession => _supabaseClient.auth.currentSession;
 }
