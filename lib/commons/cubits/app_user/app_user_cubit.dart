@@ -5,7 +5,7 @@ import 'package:flutix_movie/commons/entities/user_entity.dart';
 part 'app_user_state.dart';
 
 class AppUserCubit extends Cubit<AppUserState> {
-  AppUserCubit() : super(AppUserInitial());
+  AppUserCubit() : super(AppUserLoading());
 
   void updateUser(UserEntity? user) {
     if (user == null) {

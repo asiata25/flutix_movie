@@ -6,19 +6,20 @@ class AuthField extends StatelessWidget {
   final bool obscureText;
   final TextEditingController teController;
 
-  const AuthField(
-      {super.key,
-      required this.hintText,
-      this.icon,
-      this.obscureText = false,
-      required this.teController});
+  const AuthField({
+    super.key,
+    required this.hintText,
+    required this.teController,
+    this.icon,
+    this.obscureText = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: teController,
       obscureText: obscureText,
-      style: TextStyle(color: Colors.black),
+      style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(hintText: hintText, suffixIcon: Icon(icon)),
     );
   }

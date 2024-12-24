@@ -1,9 +1,7 @@
-import 'package:flutix_movie/features/auth/presentation/bloc/remote/bloc/auth_remote_bloc.dart';
 import 'package:flutix_movie/features/auth/presentation/pages/login_page.dart';
 import 'package:flutix_movie/features/auth/presentation/pages/signup_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OnboardPage extends StatelessWidget {
   const OnboardPage({super.key});
@@ -43,21 +41,17 @@ class OnboardPage extends StatelessWidget {
             ),
             const Expanded(child: SizedBox()),
             SizedBox(
-              width: double.infinity,
-              child: BlocBuilder<AuthRemoteBloc, AuthRemoteState>(
-                builder: (context, state) {
-                  return ElevatedButton(
-                      onPressed: () =>
-                          {Navigator.push(context, SignupPage.route())},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                      ),
-                      child: const Text(
-                        "Get Started",
-                      ));
-                },
-              ),
-            ),
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () =>
+                      {Navigator.push(context, SignupPage.route())},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                  ),
+                  child: const Text(
+                    "Get Started",
+                  ),
+                )),
             const SizedBox(
               height: 20,
             ),

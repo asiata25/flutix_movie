@@ -46,6 +46,7 @@ class AuthRemoteBloc extends Bloc<AuthRemoteEvent, AuthRemoteState> {
       return;
     }
 
+    _appUserCubit.updateUser(null);
     emit(AuthInitial());
   }
 

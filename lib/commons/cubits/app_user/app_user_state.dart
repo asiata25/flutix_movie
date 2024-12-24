@@ -7,6 +7,8 @@ sealed class AppUserState extends Equatable {
   List<Object> get props => [];
 }
 
+final class AppUserLoading extends AppUserState {}
+
 final class AppUserInitial extends AppUserState {}
 
 final class AppUserLoggedIn extends AppUserState {
