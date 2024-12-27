@@ -1,5 +1,6 @@
 import 'package:flutix_movie/core/commons/pages/home_page.dart';
 import 'package:flutix_movie/core/commons/widgets/loader.dart';
+import 'package:flutix_movie/core/theme/app_pallete.dart';
 import 'package:flutix_movie/core/utils/show_snakbar.dart';
 import 'package:flutix_movie/features/auth/presentation/bloc/remote/bloc/auth_remote_bloc.dart';
 import 'package:flutix_movie/features/auth/presentation/pages/signup_page.dart';
@@ -22,8 +23,29 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController teEmailController = TextEditingController();
   final TextEditingController tePasswordController = TextEditingController();
 
+  bool isInputValid = false;
+
+  void _validateInput() {
+    final isEmailValid = teEmailController.text.trim().isNotEmpty;
+    final isPasswordValid = tePasswordController.text.isNotEmpty;
+
+    setState(() {
+      isInputValid = isEmailValid && isPasswordValid;
+    });
+  }
+
+  @override
+  void initState() {
+    teEmailController.addListener(_validateInput);
+    tePasswordController.addListener(_validateInput);
+    super.initState();
+  }
+
   @override
   void dispose() {
+    teEmailController.removeListener(_validateInput);
+    tePasswordController.removeListener(_validateInput);
+
     teEmailController.dispose();
     tePasswordController.dispose();
     super.dispose();
@@ -80,15 +102,15 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                        onPressed: () {
-                          final email = teEmailController.text;
-                          final password = tePasswordController.text;
+                        onPressed: isInputValid
+                            ? () {
+                                final email = teEmailController.text;
+                                final password = tePasswordController.text;
 
-                          if (email.isNotEmpty && password.isNotEmpty) {
-                            context.read<AuthRemoteBloc>().add(
-                                AuthSignIn(email: email, password: password));
-                          }
-                        },
+                                context.read<AuthRemoteBloc>().add(AuthSignIn(
+                                    email: email, password: password));
+                              }
+                            : null,
                         child: const Text(
                           "Submit",
                         )),

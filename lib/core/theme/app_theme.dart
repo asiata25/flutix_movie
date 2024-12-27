@@ -10,18 +10,28 @@ class AppTheme {
   static final defaultTheme = ThemeData.dark().copyWith(
       colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       scaffoldBackgroundColor: AppPallete.backgroundColor,
-      elevatedButtonTheme: const ElevatedButtonThemeData(
+      elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-              foregroundColor: WidgetStatePropertyAll(Colors.black),
-              textStyle: WidgetStatePropertyAll(
+              foregroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.disabled)) {
+                  return AppPallete.grey300;
+                }
+                return Colors.black;
+              }),
+              textStyle: const WidgetStatePropertyAll(
                   TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-              padding:
-                  WidgetStatePropertyAll(EdgeInsets.symmetric(vertical: 14)),
+              padding: const WidgetStatePropertyAll(
+                  EdgeInsets.symmetric(vertical: 14)),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+              shape: const WidgetStatePropertyAll(RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)))),
-              shadowColor: WidgetStatePropertyAll(Colors.transparent),
-              backgroundColor: WidgetStatePropertyAll(AppPallete.mainColor))),
+              shadowColor: const WidgetStatePropertyAll(Colors.transparent),
+              backgroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.disabled)) {
+                  return AppPallete.grey200;
+                }
+                return AppPallete.mainColor;
+              }))),
       inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: Colors.white,

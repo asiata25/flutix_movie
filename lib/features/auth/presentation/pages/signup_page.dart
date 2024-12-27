@@ -23,6 +23,26 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController tePasswordController = TextEditingController();
   final TextEditingController teNameController = TextEditingController();
 
+  bool isInputValid = false;
+
+  void _validateInput() {
+    final isEmailValid = teEmailController.text.trim().isNotEmpty;
+    final isPasswordValid = tePasswordController.text.isNotEmpty;
+    final isNameValid = teNameController.text.trim().isNotEmpty;
+
+    setState(() {
+      isInputValid = isEmailValid && isPasswordValid && isNameValid;
+    });
+  }
+
+  @override
+  void initState() {
+    teEmailController.addListener(_validateInput);
+    tePasswordController.addListener(_validateInput);
+    teNameController.addListener(_validateInput);
+    super.initState();
+  }
+
   @override
   void dispose() {
     teEmailController.dispose();
@@ -42,7 +62,7 @@ class _SignupPageState extends State<SignupPage> {
               if (state is AuthError) {
                 showSnackBar(context, state.message);
               }
-              
+
               if (state is AuthDone) {
                 Navigator.pushReplacement(context, HomePage.route());
               }
@@ -90,18 +110,22 @@ class _SignupPageState extends State<SignupPage> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                        onPressed: () {
-                          final email = teEmailController.text;
-                          final password = tePasswordController.text;
-                          final name = teNameController.text;
+                        onPressed: isInputValid
+                            ? () {
+                                final email = teEmailController.text;
+                                final password = tePasswordController.text;
+                                final name = teNameController.text;
 
-                          if (email.isNotEmpty &&
-                              password.isNotEmpty &&
-                              name.isNotEmpty) {
-                            context.read<AuthRemoteBloc>().add(AuthSignUp(
-                                name: name, email: email, password: password));
-                          }
-                        },
+                                if (email.isNotEmpty &&
+                                    password.isNotEmpty &&
+                                    name.isNotEmpty) {
+                                  context.read<AuthRemoteBloc>().add(AuthSignUp(
+                                      name: name,
+                                      email: email,
+                                      password: password));
+                                }
+                              }
+                            : null,
                         child: const Text(
                           "Submit",
                         )),
