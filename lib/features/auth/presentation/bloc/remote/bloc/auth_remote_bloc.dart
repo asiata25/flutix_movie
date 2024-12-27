@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutix_movie/commons/cubits/app_user/app_user_cubit.dart';
-import 'package:flutix_movie/commons/entities/user_entity.dart';
+import 'package:flutix_movie/core/commons/cubits/app_user/app_user_cubit.dart';
+import 'package:flutix_movie/core/commons/entities/user_entity.dart';
 import 'package:flutix_movie/core/resources/data_state.dart';
 import 'package:flutix_movie/features/auth/domain/usecase/get_current_user.dart';
 import 'package:flutix_movie/features/auth/domain/usecase/user_signin.dart';

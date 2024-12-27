@@ -1,4 +1,4 @@
-import 'package:flutix_movie/commons/cubits/app_user/app_user_cubit.dart';
+import 'package:flutix_movie/core/commons/cubits/app_user/app_user_cubit.dart';
 import 'package:flutix_movie/features/auth/data/data_source/remote/auth_remote_source.dart';
 import 'package:flutix_movie/features/auth/data/repository/auth_repository_impl.dart';
 import 'package:flutix_movie/features/auth/domain/repository/auth_repository.dart';

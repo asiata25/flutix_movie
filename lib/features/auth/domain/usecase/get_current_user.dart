@@ -1,4 +1,4 @@
-import 'package:flutix_movie/commons/entities/user_entity.dart';
+import 'package:flutix_movie/core/commons/entities/user_entity.dart';
 import 'package:flutix_movie/core/resources/data_state.dart';
 import 'package:flutix_movie/core/usecase/usecase.dart';
 import 'package:flutix_movie/features/auth/domain/repository/auth_repository.dart';

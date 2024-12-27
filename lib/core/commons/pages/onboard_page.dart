@@ -37,7 +37,9 @@ class OnboardPage extends StatelessWidget {
             ),
             const Text(
               "Millions of movies, TV shows and people to discover. Explore now.",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(
+                fontSize: 16,
+              ),
             ),
             const Expanded(child: SizedBox()),
             SizedBox(

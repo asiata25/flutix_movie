@@ -1,5 +1,6 @@
-import 'package:flutix_movie/commons/cubits/app_user/app_user_cubit.dart';
+import 'package:flutix_movie/core/commons/cubits/app_user/app_user_cubit.dart';
 import 'package:flutix_movie/features/auth/presentation/bloc/remote/bloc/auth_remote_bloc.dart';
+import 'package:flutix_movie/features/auth/presentation/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,8 +13,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(
-      child: BlocBuilder<AppUserCubit, AppUserState>(
+    return Scaffold(
+        body: Center(
+      child: BlocConsumer<AppUserCubit, AppUserState>(
         builder: (context, state) {
           String displayName = "User";
 
@@ -34,7 +36,6 @@ class HomePage extends StatelessWidget {
               ),
               ElevatedButton(
                   onPressed: () {
-                    // TODO: Implement proper sign out (core cann't depend on any feature)
                     context.read<AuthRemoteBloc>().add(AuthSignOut());
                   },
                   style: ElevatedButton.styleFrom(
@@ -43,6 +44,11 @@ class HomePage extends StatelessWidget {
                   child: const Text("Sign Out"))
             ],
           );
+        },
+        listener: (BuildContext context, AppUserState state) {
+          if (state is AppUserInitial) {
+            Navigator.pushReplacement(context, LoginPage.route());
+          }
         },
       ),
     ));

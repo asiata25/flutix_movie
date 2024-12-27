@@ -1,7 +1,7 @@
-import 'package:flutix_movie/commons/cubits/app_user/app_user_cubit.dart';
-import 'package:flutix_movie/commons/pages/home_page.dart';
-import 'package:flutix_movie/commons/pages/onboard_page.dart';
-import 'package:flutix_movie/commons/pages/splash_screen.dart';
+import 'package:flutix_movie/core/commons/cubits/app_user/app_user_cubit.dart';
+import 'package:flutix_movie/core/commons/pages/home_page.dart';
+import 'package:flutix_movie/core/commons/pages/onboard_page.dart';
+import 'package:flutix_movie/core/commons/pages/splash_screen.dart';
 import 'package:flutix_movie/core/theme/app_theme.dart';
 import 'package:flutix_movie/features/auth/presentation/bloc/remote/bloc/auth_remote_bloc.dart';
 import 'package:flutix_movie/injection_container.dart';

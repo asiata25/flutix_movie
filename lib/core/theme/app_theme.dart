@@ -12,7 +12,7 @@ class AppTheme {
       scaffoldBackgroundColor: AppPallete.backgroundColor,
       elevatedButtonTheme: const ElevatedButtonThemeData(
           style: ButtonStyle(
-            foregroundColor: WidgetStatePropertyAll(Colors.black),
+              foregroundColor: WidgetStatePropertyAll(Colors.black),
               textStyle: WidgetStatePropertyAll(
                   TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
               padding:
@@ -29,5 +29,7 @@ class AppTheme {
               const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           enabledBorder: _borderStyle(),
           focusedBorder: _borderStyle(AppPallete.mainColor, 3),
-          hintStyle: const TextStyle(color: AppPallete.grey300)));
+          hintStyle: const TextStyle(color: AppPallete.grey300)),
+      textTheme:
+          const TextTheme(bodyMedium: TextStyle(fontFamily: "Open Sans")));
 }
