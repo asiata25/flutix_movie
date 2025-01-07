@@ -40,6 +40,12 @@ class AppTheme {
           enabledBorder: _borderStyle(),
           focusedBorder: _borderStyle(AppPallete.mainColor, 3),
           hintStyle: const TextStyle(color: AppPallete.grey300)),
-      textTheme:
-          const TextTheme(bodyMedium: TextStyle(fontFamily: "Open Sans")));
+      textTheme: const TextTheme(
+          bodyMedium: TextStyle(fontFamily: "Open Sans"),
+          bodyLarge: TextStyle(
+            fontFamily: "Open Sans",
+            fontSize: 20,
+          ),
+          titleLarge:
+              TextStyle(fontFamily: "Raleway", fontWeight: FontWeight.w500)));
 }

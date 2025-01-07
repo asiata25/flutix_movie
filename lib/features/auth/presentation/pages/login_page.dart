@@ -1,6 +1,5 @@
-import 'package:flutix_movie/core/commons/pages/home_page.dart';
+import 'package:flutix_movie/core/commons/pages/main_page.dart';
 import 'package:flutix_movie/core/commons/widgets/loader.dart';
-import 'package:flutix_movie/core/theme/app_pallete.dart';
 import 'package:flutix_movie/core/utils/show_snakbar.dart';
 import 'package:flutix_movie/features/auth/presentation/bloc/remote/bloc/auth_remote_bloc.dart';
 import 'package:flutix_movie/features/auth/presentation/pages/signup_page.dart';
@@ -64,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
               }
 
               if (state is AuthDone) {
-                Navigator.pushReplacement(context, HomePage.route());
+                Navigator.pushReplacement(context, MainPage.route());
               }
             },
             builder: (context, state) {

@@ -98,6 +98,8 @@ class SupabaseDataSource extends AuthRemoteSource {
       } else {
         throw Exception("no user data");
       }
+    } on PostgrestException catch (e) {
+      return DataFailed(e.message);
     } catch (e) {
       return DataFailed(e.toString());
     }

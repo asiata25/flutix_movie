@@ -1,4 +1,4 @@
-import 'package:flutix_movie/core/commons/pages/home_page.dart';
+import 'package:flutix_movie/core/commons/pages/main_page.dart';
 import 'package:flutix_movie/core/commons/widgets/loader.dart';
 import 'package:flutix_movie/core/utils/show_snakbar.dart';
 import 'package:flutix_movie/features/auth/presentation/bloc/remote/bloc/auth_remote_bloc.dart';
@@ -64,7 +64,7 @@ class _SignupPageState extends State<SignupPage> {
               }
 
               if (state is AuthDone) {
-                Navigator.pushReplacement(context, HomePage.route());
+                Navigator.pushReplacement(context, MainPage.route());
               }
             },
             builder: (context, state) {

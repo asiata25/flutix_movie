@@ -8,7 +8,7 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Image.asset(
-          "assets/images/logo.png",
+          "assets/images/logo_flutix.png",
           width: 150,
           height: 150,
         ),

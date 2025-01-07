@@ -1,5 +1,5 @@
 import 'package:flutix_movie/core/commons/cubits/app_user/app_user_cubit.dart';
-import 'package:flutix_movie/core/commons/pages/home_page.dart';
+import 'package:flutix_movie/core/commons/pages/main_page.dart';
 import 'package:flutix_movie/core/commons/pages/onboard_page.dart';
 import 'package:flutix_movie/core/commons/pages/splash_screen.dart';
 import 'package:flutix_movie/core/theme/app_theme.dart';
@@ -50,7 +50,7 @@ class _MyAppState extends State<MyApp> {
             if (state is AppUserInitial) {
               return const OnboardPage();
             } else if (state is AppUserLoggedIn) {
-              return const HomePage();
+              return const MainPage();
             } else {
               return const SplashScreen();
             }
