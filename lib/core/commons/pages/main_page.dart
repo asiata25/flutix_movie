@@ -1,4 +1,5 @@
 import 'package:flutix_movie/core/commons/widgets/bottom_nav.dart';
+import 'package:flutix_movie/features/movie/presentation/pages/movie_page.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -44,9 +45,7 @@ class _MainPageState extends State<MainPage> {
           });
         },
         children: const [
-          Center(
-            child: Text("Movie"),
-          ),
+          MoviePage(),
           Center(
             child: Text("Ticket"),
           )

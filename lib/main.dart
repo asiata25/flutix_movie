@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
           selector: (state) {
             if (state is AppUserInitial) {
               return const OnboardPage();
-            } else if (state is AppUserLoggedIn) {
+            } else if (state is AppUserLoaded) {
               return const MainPage();
             } else {
               return const SplashScreen();

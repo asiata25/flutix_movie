@@ -11,8 +11,8 @@ final class AppUserLoading extends AppUserState {}
 
 final class AppUserInitial extends AppUserState {}
 
-final class AppUserLoggedIn extends AppUserState {
+final class AppUserLoaded extends AppUserState {
   final UserEntity user;
 
-  const AppUserLoggedIn(this.user);
+  const AppUserLoaded(this.user);
 }

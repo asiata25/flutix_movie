@@ -1,5 +1,7 @@
 import 'package:flutix_movie/core/theme/app_pallete.dart';
+import 'package:flutix_movie/features/auth/presentation/bloc/remote/bloc/auth_remote_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BottomNav extends StatelessWidget {
   final int navBarIndex;
@@ -26,14 +28,20 @@ class BottomNav extends StatelessWidget {
                   unselectedItemColor: AppPallete.grey300,
                   currentIndex: navBarIndex,
                   onTap: onPageChanged,
-                  items: const [
+                  items: [
                     BottomNavigationBarItem(
                       label: "Movie",
-                      icon: Icon(Icons.movie),
+                      icon: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        child: const Icon(Icons.movie),
+                      ),
                     ),
                     BottomNavigationBarItem(
                       label: "Ticket",
-                      icon: Icon(Icons.confirmation_num),
+                      icon: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        child: const Icon(Icons.confirmation_num),
+                      ),
                     ),
                   ]),
             ),
@@ -42,9 +50,10 @@ class BottomNav extends StatelessWidget {
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-            margin: const EdgeInsets.only(bottom: 65),
+            margin: const EdgeInsets.only(bottom: 80),
             child: FloatingActionButton(
-              onPressed: () => {print("floating Action Button")},
+              onPressed: () =>
+                  {context.read<AuthRemoteBloc>().add(AuthSignOut())},
               backgroundColor: AppPallete.mainColor,
               shape: const CircleBorder(),
               child: const Icon(Icons.account_balance_wallet),
