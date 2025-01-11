@@ -1,4 +1,5 @@
 import 'package:flutix_movie/core/commons/widgets/bottom_nav.dart';
+import 'package:flutix_movie/core/theme/app_pallete.dart';
 import 'package:flutix_movie/features/movie/presentation/pages/movie_page.dart';
 import 'package:flutter/material.dart';
 
@@ -36,8 +37,16 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(children: [
+      Container(
+          decoration: const BoxDecoration(
+        color: AppPallete.purpleColor,
+      )),
       SafeArea(
-          child: PageView(
+          child: Container(
+              decoration: const BoxDecoration(
+        color: AppPallete.backgroundColor,
+      ))),
+      PageView(
         controller: pageController,
         onPageChanged: (value) {
           setState(() {
@@ -50,8 +59,11 @@ class _MainPageState extends State<MainPage> {
             child: Text("Ticket"),
           )
         ],
-      )),
-      BottomNav(navBarIndex: bottomNavBarIndex, onPageChanged: pageChangeHandler,),
+      ),
+      BottomNav(
+        navBarIndex: bottomNavBarIndex,
+        onPageChanged: pageChangeHandler,
+      ),
     ]));
   }
 }

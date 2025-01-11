@@ -46,6 +46,12 @@ class AppTheme {
             fontFamily: "Open Sans",
             fontSize: 20,
           ),
-          titleLarge:
-              TextStyle(fontFamily: "Raleway", fontWeight: FontWeight.w500)));
+          titleLarge: TextStyle(
+            fontFamily: "Raleway",
+            fontWeight: FontWeight.w500,
+          ),
+          titleMedium: TextStyle(
+            fontFamily: "Raleway",
+            fontWeight: FontWeight.w500,
+          )));
 }
