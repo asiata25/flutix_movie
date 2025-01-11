@@ -8,7 +8,9 @@ class UserModel extends UserEntity {
     this.rawUserMetaData,
     required super.id,
     required super.email,
-  }) : super(name: rawUserMetaData?.displayName ?? "");
+  }) : super(
+            name: rawUserMetaData?.displayName ?? "",
+            amount: rawUserMetaData?.amount ?? 0);
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json["id"] ?? "",
@@ -32,35 +34,23 @@ class UserModel extends UserEntity {
 }
 
 class RawUserMetaData extends Equatable {
-  final String? sub;
   final String? email;
   final String? displayName;
-  final bool? emailVerified;
-  final bool? phoneVerified;
+  final int? amount;
 
   const RawUserMetaData({
-    this.sub,
     this.email,
     this.displayName,
-    this.emailVerified,
-    this.phoneVerified,
+    this.amount,
   });
 
   factory RawUserMetaData.fromJson(Map<String, dynamic> json) =>
       RawUserMetaData(
-        sub: json["sub"] ?? "",
-        email: json["email"]?? "",
+        email: json["email"] ?? "",
         displayName: json["display_name"] ?? "",
-        emailVerified: json["email_verified"] ?? "",
-        phoneVerified: json["phone_verified"] ?? "",
+        amount: json["amount"] ?? 0,
       );
 
   @override
-  List<Object?> get props => [
-        sub,
-        email,
-        displayName,
-        emailVerified,
-        phoneVerified,
-      ];
+  List<Object?> get props => [email, displayName, amount];
 }

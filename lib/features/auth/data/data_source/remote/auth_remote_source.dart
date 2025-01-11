@@ -29,7 +29,7 @@ class SupabaseDataSource extends AuthRemoteSource {
       final AuthResponse res = await _supabaseClient.auth.signUp(
         email: email,
         password: password,
-        data: {'display_name': name},
+        data: {'display_name': name, "amount": 500000},
       );
 
       final User? user = res.user;

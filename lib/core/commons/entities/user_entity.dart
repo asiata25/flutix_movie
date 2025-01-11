@@ -4,11 +4,13 @@ class UserEntity extends Equatable {
   final String id;
   final String email;
   final String name;
+  final int amount;
 
   const UserEntity({
     required this.id,
     required this.email,
     required this.name,
+    required this.amount,
   });
 
   @override
@@ -16,5 +18,6 @@ class UserEntity extends Equatable {
         id,
         email,
         name,
+        amount,
       ];
 }
